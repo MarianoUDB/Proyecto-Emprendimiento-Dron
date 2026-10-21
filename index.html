@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONSULTORÍA AERONÁUTICA | Legalización y Operación de Drones en El Salvador (RAC-RPAS)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --border-light: #e2e8f0;
+      --border-focus: #0284c7;
+      --text-heading: #0f172a;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --primary-blue: #0284c7;
+      --primary-dark: #0369a1;
+      --accent-navy: #0f172a;
+      --status-green: #059669;
+      --status-amber: #d97706;
+      --status-red: #dc2626;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 30px -4px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Aeronautical Navigation Bar */
+    header.advisor-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-insignia {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+    }
+
+    .brand-meta h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -0.01em;
+    }
+
+    .brand-meta p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav-mode {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      color: var(--text-body);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-nav-mode:hover {
+      background: var(--bg-subtle);
+      border-color: #cbd5e1;
+    }
+
+    .btn-nav-mode.active {
+      background: #e0f2fe;
+      border-color: #7dd3fc;
+      color: var(--primary-dark);
+    }
+
+    .btn-flowchart-quick {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    }
+
+    .btn-flowchart-quick:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+    }
+
+    /* Main Content Wrapper */
+    main.presentation-deck {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 24px 100px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Slide Deck Card Container */
+    .slide-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      padding: 38px 44px;
+      display: none;
+      flex-direction: column;
+      position: relative;
+      animation: fadeInSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .slide-card.active {
+      display: flex;
+    }
+
+    @keyframes fadeInSlide {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Slide Header */
+    .slide-top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .header-text-group {
+      max-width: 900px;
+    }
+
+    .slide-badge-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .slide-main-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.15rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      line-height: 1.2;
+    }
+
+    .slide-lead-desc {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .regulatory-stamp {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 8px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .stamp-label {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stamp-val {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    /* Grid Layouts */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 8px;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    /* Advisor Cards */
+    .advisor-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .advisor-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: var(--shadow-md);
+    }
+
+    .advisor-card.highlight {
+      border-color: #bae6fd;
+      background: #f0f9ff;
+    }
+
+    .advisor-card.alert-card {
+      border-color: #fde68a;
+      background: #fffbeb;
+    }
+
+    .card-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      color: var(--primary-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .card-icon-box svg { width: 22px; height: 22px; }
+
+    .card-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 8px;
+    }
+
+    .card-body-text {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    /* Legal citation pill / badge */
+    .legal-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #f1f5f9;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      margin: 2px 0;
+    }
+
+    /* Official Document Snippet Box */
+    .doc-page-snippet {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid var(--primary-blue);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 0.82rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    .doc-page-snippet .snippet-header {
+      display: flex;
+      justify-content: space-between;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    /* Image Showcase Frame */
+    .image-showcase {
+      width: 100%;
+      height: 230px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      margin-bottom: 16px;
+      position: relative;
+      background: #e2e8f0;
+    }
+
+    .image-showcase img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .image-showcase:hover img {
+      transform: scale(1.03);
+    }
+
+    .image-caption-pill {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(15, 23, 42, 0.86);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+      backdrop-filter: blur(6px);
+      letter-spacing: 0.02em;
+    }
+
+    /* Comparison Table Styling */
+    .clean-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 8px;
+      font-size: 0.87rem;
+    }
+
+    .clean-table th {
+      background: #f1f5f9;
+      color: var(--text-heading);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      padding: 13px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.88rem;
+    }
+
+    .clean-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-body);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .clean-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .clean-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .badge-class {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .badge-a {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .badge-b {
+      background: #e0f2fe;
+      color: #075985;
+      border: 1px solid #bae6fd;
+    }
+
+    /* DJI Recommendation Cards */
+    .dji-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .dji-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 18px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dji-card.featured {
+      border-color: #0284c7;
+      background: #f0f9ff;
+    }
+
+    .dji-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #0284c7;
+      color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .dji-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 4px;
+    }
+
+    .dji-weight {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .dji-rotor-guard-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin: 8px 0;
+      font-size: 0.8rem;
+    }
+
+    .dji-rotor-guard-box strong {
+      color: #0369a1;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Document Inspector Tabs */
+    .doc-inspector-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .doc-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .doc-tab-btn {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .doc-tab-btn:hover {
+      background: var(--bg-subtle);
+      border-color: #cbd5e1;
+    }
+
+    .doc-tab-btn.active {
+      background: #f0f9ff;
+      border-color: #0284c7;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.12);
+    }
+
+    .doc-tab-btn .tab-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+    }
+
+    .doc-tab-btn .tab-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+
+    .doc-preview-panel {
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 26px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Budget Breakdown (Slide 6) */
+    .budget-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 10px;
+    }
+
+    .budget-column {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .budget-column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--bg-subtle);
+      margin-bottom: 14px;
+    }
+
+    .budget-col-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .budget-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.86rem;
+    }
+
+    .budget-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .budget-item-name {
+      color: var(--text-body);
+      max-width: 78%;
+      line-height: 1.4;
+    }
+
+    .budget-item-cost {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--text-heading);
+    }
+
+    .budget-subtotal-box {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 2px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .subtotal-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .subtotal-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .budget-total-bar {
+      margin-top: 20px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      border-radius: 14px;
+      padding: 20px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .total-kicker {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .total-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .total-amount-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    /* Flowchart Styling (Slide 8) */
+    .flowchart-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .flow-steps-rail {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      position: relative;
+    }
+
+    .flow-step-node {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .flow-step-node:hover {
+      border-color: #0284c7;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .flow-step-node.active {
+      border-color: #0284c7;
+      background: #f0f9ff;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.18);
+    }
+
+    .flow-node-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .flow-step-node.active .flow-node-num {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    .flow-node-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+
+    .flow-node-form {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: #0284c7;
+      font-weight: 600;
+    }
+
+    .flow-detail-card {
+      background: #ffffff;
+      border: 1px solid #bae6fd;
+      border-radius: 14px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .flow-detail-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    /* Continuous Scroll Mode */
+    body.continuous-mode main.presentation-deck {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    body.continuous-mode .slide-card {
+      display: flex !important;
+      animation: none;
+    }
+
+    body.continuous-mode .presentation-footer {
+      display: none;
+    }
+
+    /* Presentation Footer Controls */
+    footer.presentation-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border-light);
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 99;
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .slide-page-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+    }
+
+    .nav-dot.active {
+      width: 24px;
+      border-radius: 4px;
+      background: var(--primary-blue);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-slide-nav {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      color: var(--text-heading);
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-slide-nav:hover {
+      background: var(--bg-subtle);
+      border-color: #cbd5e1;
+    }
+
+    .btn-slide-nav.btn-primary {
+      background: var(--primary-blue);
+      border-color: var(--primary-blue);
+      color: #ffffff;
+    }
+
+    .btn-slide-nav.btn-primary:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+
+    @media (max-width: 900px) {
+      .grid-2col, .doc-inspector-grid, .budget-grid, .flow-steps-rail, .flow-detail-card, .dji-grid {
+        grid-template-columns: 1fr;
+      }
+      .slide-card {
+        padding: 24px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Executive Bar -->
+  <header class="advisor-nav">
+    <div class="brand-cluster">
+      <div class="brand-insignia">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="brand-meta">
+        <h1>Asesoría Legal Aeronáutica • RAC-RPAS El Salvador</h1>
+        <p>Regulación de Sistemas Pilotados a Distancia • Autoridad de Aviación Civil (AAC)</p>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn-nav-mode active" id="btnDeck" onclick="togglePresentationMode('deck')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        Diapositivas
+      </button>
+      <button class="btn-nav-mode" id="btnScroll" onclick="togglePresentationMode('scroll')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Vista Continua
+      </button>
+      <button class="btn-flowchart-quick" onclick="setSlide(8)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Flujograma Legal
+      </button>
+    </div>
+  </header>
+
+  <!-- Presentation Deck Body -->
+  <main class="presentation-deck">
+
+    <!-- SLIDE 1: DICTAMEN TÉCNICO INICIAL -->
+    <section class="slide-card active" id="slide-1">
+      <div class="slide-top-header">
+        <div class="header-text-group">
+          <div class="slide-badge-kicker">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            DICTAMEN TÉCNICO INICIAL • CONSULTORÍA AERONÁUTICA
+          </div>
+          <h1 class="slide-main-title">Hoja de Ruta Legal para Operar Drones en Turismo y VR</h1>
+          <p class="slide-lead-desc">Dictamen pericial sobre matriculación de aeronaves, habilitación de pilotos, aranceles reales y blindaje regulatorio bajo la normativa RAC-RPAS de El Salvador.</p>
+        </div>
+        <div class="regulatory-stamp">
+          <div class="stamp-label">JURISDICCIÓN</div>
+          <div class="stamp-val">AAC EL SALVADOR</div>
+          <div class="stamp-label" style="margin-top:4px;">LOAC ART. 92 & 172</div>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <div>
+          <div class="image-showcase">
+            <img src="assets/drone-flight.jpg" alt="Vuelo Comercial de Dron en El Salvador">
+            <div class="image-caption-pill">OPERACIÓN EN ESPACIO AÉREO CLASE G • PANORAMA NACIONAL</div>
+          </div>
+          <div class="advisor-card highlight">
+            <div class="card-heading" style="color:var(--primary-dark);">Conclusión Jurídico-Aeronáutica Principal</div>
+            <p class="card-body-text">
+              Para un emprendimiento comercial de turismo inmersivo (como vuelos panorámicos con visores de Realidad Virtual para comensales en restaurantes y miradores), la figura legal aplicable es <strong>Trabajo Aéreo Comercial</strong> <span class="legal-tag">RAC-RPAS 10.010 • Pág. 69</span>. 
+              <br><br>
+              <strong>Recomendación Estratégica:</strong> Homologar la operación bajo <strong>Categoría Clase "A" con Certificado CORPAS</strong>. Esto permite operar aeronaves comerciales de menos de 25 kg mediante un proceso documental abreviado, con vigencia anual y tiempos de resolución significativamente más ágiles que la Clase B.
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="advisor-card">
+            <div class="card-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="card-heading">Los 4 Pilares de la Legalización Oficial</div>
+            <p class="card-body-text">
+              1. <strong>Identificación del Operario:</strong> Formulario oficial <code>AAC-ING-000-F2</code> presentado ante la AAC en Ilopango.<br>
+              2. <strong>Matriculación de la Aeronave:</strong> Formulario <code>AAC-ING-000-F1</code> para asignación de placa metálica <code>YS-XXXX-M-P</code> y código QR.<br>
+              3. <strong>Póliza de Responsabilidad Civil:</strong> Cobertura obligatoria por daños a terceros según el Art. 172 de la Ley Orgánica de Aviación Civil.<br>
+              4. <strong>Autorización CORPAS:</strong> Certificado <code>AAC-1128</code> que confiere validez jurídica a la explotación comercial del espacio aéreo.
+            </p>
+          </div>
+
+          <div class="advisor-card" style="border-left:4px solid var(--primary-blue);">
+            <div class="card-heading" style="color:var(--primary-dark); font-size:1.05rem;">Alcance Operacional en Turismo Inmersivo</div>
+            <p class="card-body-text">
+              La transmisión de señal en vivo a visores de Realidad Virtual para comensales clasifica legalmente como una <strong>operación comercial en espacio aéreo no controlado (Clase G)</strong>. Exige piloto debidamente habilitado, observador visual en línea de vista directa (VLOS) y aeronaves dotadas de protecciones de rotor para mitigar cualquier riesgo operacional en tierra.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: REQUISITOS DEL PILOTO (DESDE CERO) -->
+    <section class="slide-card" id="slide-2">
+      <div class="slide-top-header">
+        <div class="header-text-group">
+          <div class="slide-badge-kicker">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            PERSONAL AERONÁUTICO • PROCESO DESDE CERO
+          </div>
+          <h2 class="slide-main-title">Habilitación del Piloto de Dron: Clase A y Clase B</h2>
+          <p class="slide-lead-desc">Requerimientos técnicos, lugares oficiales de gestión en El Salvador y formularios para personas naturales sin experiencia previa.</p>
+        </div>
+        <div class="regulatory-stamp">
+          <div class="stamp-label">RAC-RPAS</div>
+          <div class="stamp-val">ARTS. 5.020 & 6.055</div>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <!-- Requisitos Clase A -->
+        <div class="advisor-card highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span class="badge-class badge-a">PILOTO CLASE "A" (TRABAJO AÉREO)</span>
+            <span style="font-family:'JetBrains Mono'; font-weight:700; color:var(--status-green); font-size:0.85rem;">COSTO PILOTO: ~$295 USD</span>
+          </div>
+          <p class="card-body-text" style="margin-bottom:14px;">
+            Acreditación requerida para operar aeronaves de hasta 25 kg en vuelos visuales (VLOS) dentro de 500 metros:
+          </p>
+          <ul style="font-size:0.86rem; color:var(--text-body); line-height:1.65; padding-left:18px;">
+            <li><strong>Edad Mínima:</strong> 18 años cumplidos para actividades comerciales (16 años recreativo con carta notariada de padres).</li>
+            <li><strong>Formulario Oficial:</strong> Llenado del formulario <code>AAC-ING-000-F2</code> con DUI o pasaporte y datos de contacto en El Salvador.</li>
+            <li><strong>Mantenimiento de Aptitud:</strong> Acreditar en bitácora personal un mínimo de <strong>3 horas de vuelo en los últimos 3 meses</strong> <span class="legal-tag">RAC-RPAS 4.025(a) • Pág. 26</span>.</li>
+            <li><strong>Entrenamiento Anual:</strong> La AAC valida una <strong>autodeclaración de entrenamiento continuo anual</strong> para pilotos Clase A <span class="legal-tag">RAC-RPAS 4.025(b) • Pág. 26</span>.</li>
+            <li><strong>Declaración Jurada Notariada:</strong> Formulario <code>AAC-ING-000-F4</code> declarando apego a procedimientos de vuelo y respeto al derecho de vía de aeronaves tripuladas.</li>
+          </ul>
+        </div>
+
+        <!-- Requisitos Clase B -->
+        <div class="advisor-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span class="badge-class badge-b">PILOTO CLASE "B" (ESPECÍFICA / COMPLEJA)</span>
+            <span style="font-family:'JetBrains Mono'; font-weight:700; color:var(--primary-dark); font-size:0.85rem;">COSTO PILOTO: ~$760 USD</span>
+          </div>
+          <p class="card-body-text" style="margin-bottom:14px;">
+            Acreditación exigida para operaciones de riesgo superior (peso hasta 150 kg, BVLOS, o proximidad a aglomeraciones):
+          </p>
+          <ul style="font-size:0.86rem; color:var(--text-body); line-height:1.65; padding-left:18px;">
+            <li><strong>Edad Mínima:</strong> 18 años cumplidos obligatorios <span class="legal-tag">RAC-RPAS 6.060 • Pág. 41</span>.</li>
+            <li><strong>Formación Teórica y Práctica Formal:</strong> Syllabus de 8 asignaturas obligatorias (Regulación RPAS, Espacio Aéreo, Seguridad Operacional, Factores Humanos, Meteorología, Aviónica, Procedimientos y Vuelos Prácticos).</li>
+            <li><strong>Supervisión Jerárquica:</strong> Las horas en bitácora deben ser convalidadas por el <strong>Jefe de Pilotos Remotos</strong> de la organización <span class="legal-tag">RAC-RPAS 4.025(c) • Pág. 26</span>.</li>
+            <li><strong>Demostración Práctica AAC:</strong> Evaluación en campo ante inspectores del Departamento de Ingeniería Aeronáutica durante la Fase 4 del proceso CORPAS.</li>
+            <li><strong>Custodia Documental:</strong> Archivo de expedientes de cualificación por un mínimo de <strong>3 años</strong> <span class="legal-tag">CA-RAC-RPAS 6.065 (5.02) • Pág. 138</span>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Lugares de Realización -->
+      <div class="advisor-card" style="margin-top:20px; background:#f8fafc;">
+        <div class="card-heading" style="font-size:1rem; display:flex; align-items:center; gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Sedes Físicas y Virtuales para los Trámites en El Salvador
+        </div>
+        <div class="grid-3col" style="margin-top:12px; font-size:0.85rem; color:var(--text-body);">
+          <div>
+            <strong>1. Colecturía e Ingeniería AAC:</strong><br>
+            Km 9 ½ Carretera Panamericana, contiguo a Zona Franca San Bartolo, Ilopango. Recepción formal de solicitudes, cotejo de DUI y pago en ventanilla oficial.
+          </div>
+          <div>
+            <strong>2. Módulo Virtual AAC:</strong><br>
+            Plataforma en línea <em>"Gestión de Operador Drones (RPA)"</em> en el portal institucional <code>aac.gob.sv</code> para descarga de formularios y subida de archivos digitales.
+          </div>
+          <div>
+            <strong>3. Academias Autorizadas:</strong><br>
+            Centros autorizados bajo RAC-RPAS 20.025, diplomados aeronáuticos y polígonos de vuelo certificados (mínimo 50m × 50m × 120m de volumen seguro).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: MATRÍCULA E INSCRIPCIÓN DEL DRON -->
+    <section class="slide-card" id="slide-3">
+      <div class="slide-top-header">
+        <div class="header-text-group">
+          <div class="slide-badge-kicker">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            AERONAVEGABILIDAD • IDENTIFICACIÓN OFICIAL
+          </div>
+          <h2 class="slide-main-title">Inscripción y Matrícula del Dron (Formulario F1)</h2>
+          <p class="slide-lead-desc">Requisitos documentales, placas físicas indelebles, código QR y estructura de matrícula nacional salvadoreña.</p>
+        </div>
+        <div class="regulatory-stamp">
+          <div class="stamp-label">RAC-RPAS</div>
+          <div class="stamp-val">SUBPARTE L • ART. 13.005</div>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <div>
+          <div class="image-showcase">
+            <img src="assets/drone-registration-docs.jpg" alt="Mesa de Inspección y Registro de Drones AAC">
+            <div class="image-caption-pill">EXPEDIENTE DE MATRÍCULA Y PLACA METÁLICA YS-XXXX-M-P</div>
+          </div>
+          <div class="advisor-card" style="background:#f8fafc;">
+            <div class="card-heading" style="font-size:1rem;">Estructura Oficial de la Matrícula Salvadoreña</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:1.15rem; font-weight:700; color:var(--primary-dark); background:#ffffff; border:1px solid var(--border-light); padding:10px 14px; border-radius:10px; margin:8px 0; text-align:center;">
+              YS – [XXXX] – M – P
+            </div>
+            <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.5;">
+              • <strong>YS:</strong> Marca de nacionalidad salvadoreña otorgada por la AAC.<br>
+              • <strong>[XXXX]:</strong> Número correlativo alfanumérico otorgado por el registro.<br>
+              • <strong>M:</strong> Tipo de aeronave (M = Multirrotor, A = Ala Fija, H = Helicóptero).<br>
+              • <strong>P:</strong> Pertenencia Particular / Privada comercial.
+            </div>
+          </div>
+        </div>
+
+        <div class="advisor-card highlight">
+          <div class="card-heading">Requisitos para Llenar el Formulario AAC-ING-000-F1</div>
+          <p class="card-body-text" style="margin-bottom:12px;">
+            El propietario debe consignar formalmente ante la AAC <span class="legal-tag">RAC-RPAS 13.010 • Pág. 79</span>:
+          </p>
+          <ul style="font-size:0.86rem; color:var(--text-body); line-height:1.6; padding-left:18px;">
+            <li><strong>Ficha Técnica de la Aeronave:</strong> Fabricante, modelo exacto, número de serie de fábrica y peso máximo de despegue (MTOM).</li>
+            <li><strong>Estación Remota (Control RPS):</strong> Fabricante, modelo y número de serie del radio control.</li>
+            <li><strong>Frecuencias de Enlace C2:</strong> Bandas de operación inalámbrica (ej. 2.4 GHz, 5.8 GHz).</li>
+            <li><strong>Evidencia Legal de Propiedad:</strong> Factura comercial de compra a nombre del titular o documento de compraventa notariado.</li>
+            <li><strong>Cuatro (4) Fotografías Obligatorias:</strong> Tomas a color nítidas: <em>vista frontal, vista superior, vista inferior y vista lateral</em>.</li>
+            <li><strong>Número de Póliza de Seguro de Responsabilidad Civil:</strong> Conforme al Art. 172 de la Ley Orgánica de Aviación Civil.</li>
+            <li><strong>Placas Físicas Grabadas y Código QR:</strong> Debe instalarse en el dron y en el control una placa metálica grabada con la matrícula y el sticker QR oficial.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: COMPARACIÓN TÉCNICA CLASE A VS CLASE B Y RECOMENDACIONES DJI -->
+    <section class="slide-card" id="slide-4">
+      <div class="slide-top-header">
+        <div class="header-text-group">
+          <div class="slide-badge-kicker">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            MATRIZ COMPARATIVA • ESPECIFICACIONES TÉCNICAS
+          </div>
+          <h2 class="slide-main-title">Comparación de Limitaciones: Clase "A" vs. Clase "B"</h2>
+          <p class="slide-lead-desc">Diferencias jurídicas, operacionales y requerimientos técnicos exigidos por la reglamentación salvadoreña.</p>
+        </div>
+        <div class="regulatory-stamp">
+          <div class="stamp-label">RAC-RPAS</div>
+          <div class="stamp-val">SUBPARTES D & E</div>
+        </div>
+      </div>
+
+      <table class="clean-table">
+        <thead>
+          <tr>
+            <th>Parámetro Operacional</th>
+            <th>Categoría Clase "A" (Abierta)</th>
+            <th>Categoría Clase "B" (Específica)</th>
+            <th>Detalles a tomar en cuenta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Rango de Peso (MTOM)</strong></td>
+            <td>0.200 kg a 25.0 kg</td>
+            <td>0.200 kg a 150.0 kg</td>
+            <td><span class="badge-class badge-a">Clase A recomendada</span> para multirrotores comerciales ligeros (&lt; 2 kg).</td>
+          </tr>
+          <tr>
+            <td><strong>Envergadura Máxima</strong></td>
+            <td>Menor a 1.0 metro</td>
+            <td>Menor a 3.0 metros</td>
+            <td>Drones tipo DJI Avata y Mavic cumplen holgadamente (&lt; 0.4 m).</td>
+          </tr>
+          <tr>
+            <td><strong>Distancia Máxima Horizontal</strong></td>
+            <td>Menor a 500 metros desde la RPS</td>
+            <td>Definida por estudio SORA y enlace C2</td>
+            <td>500 m cubre con amplitud el radio visual de restaurantes y miradores.</td>
+          </tr>
+          <tr>
+            <td><strong>Línea de Visión (Visual Flight)</strong></td>
+            <td>Estricto VLOS (Visual Line of Sight)</td>
+            <td>VLOS, EVLOS (observadores) o BVLOS</td>
+            <td>En turismo VR con visores se exige siempre <strong>Observador VLOS</strong>.</td>
+          </tr>
+          <tr>
+            <td><strong>Altitud Máxima (AGL)</strong></td>
+            <td>120 m (400 ft) (+15m sobre obstáculo)</td>
+            <td>120 m estándar (ampliable según SORA)</td>
+            <td>120 m sobre terreno ofrece panorámicas paisajísticas de alta calidad.</td>
+          </tr>
+          <tr>
+            <td><strong>Visibilidad Meteorológica</strong></td>
+            <td>Mínimo 1.5 km radial</td>
+            <td>Mínimo 5.0 km radial</td>
+            <td>Clase A otorga mayor flexibilidad operativa en días con bruma leve.</td>
+          </tr>
+          <tr>
+            <td><strong>Proximidad a Personas</strong></td>
+            <td>Mínimo 30 m (15 m con consentimiento)</td>
+            <td>Matriz SORA / paracaídas de emergencia</td>
+            <td>Mesas al aire libre exigen distancia de 15 m o protección de techo/pérgola.</td>
+          </tr>
+          <tr>
+            <td><strong>Identificación Remota (Remote ID)</strong></td>
+            <td>Placa física y calcomanía con Código QR</td>
+            <td>Módulo de transmisión activa de telemetría</td>
+            <td>Clase A ahorra el costo de módulos de transmisión radial activa.</td>
+          </tr>
+          <tr>
+            <td><strong>Vigencia del CORPAS</strong></td>
+            <td><strong>1 año</strong> (Trámite documental ágil)</td>
+            <td><strong>3 años</strong> (Proceso complejo de 5 fases)</td>
+            <td>Clase A reduce el tiempo de salida al mercado de meses a semanas.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- APARTADO DE RECOMENDACIONES DJI CON PROTECCIÓN DE ROTORES -->
+      <div style="margin-top:22px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:1.15rem; color:var(--text-heading); display:flex; align-items:center; gap:8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+            Recomendaciones Técnicas de Equipos DJI (Importancia de la Protección en los Rotores)
+          </h3>
+          <span class="legal-tag">RAC-RPAS 5.035(b)(4) & 9.030</span>
+        </div>
+        <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:12px;">
+          La normativa de la AAC exige medidas mecánicas de mitigación para autorizar vuelos comerciales cercanos a instalaciones o personas. Es <strong>mandatorio que los drones dispongan de protectores integrales de hélices (rotor guards)</strong> para prevenir laceraciones ante un contacto accidental:
+        </p>
+
+        <div class="dji-grid">
+          <!-- Modelo 1: DJI Avata 2 -->
+          <div class="dji-card featured">
+            <div>
+              <span class="dji-tag">RECOMENDADO VR</span>
+              <div class="dji-title">DJI Avata 2</div>
+              <div class="dji-weight">MTOM: 377 g • Categoría Clase A</div>
+              <div class="dji-rotor-guard-box">
+                <strong>Protección Integrada de Fábrica:</strong>
+                Chasis cerrado tipo <em>Cinewhoop</em> con guardas de rotor integrales que cubren el 100% de las aspas.
+              </div>
+              <p style="font-size:0.8rem; color:var(--text-body); line-height:1.45;">
+                • Ideal para turismo inmersivo y FPV: transmisión O4 de ultra-baja latencia hacia visores VR.<br>
+                • Botón de parada de emergencia que detiene la aeronave y la deja en vuelo estacionario automático.<br>
+                • Máxima seguridad para operar sobre terrazas o miradores.
+              </p>
+            </div>
+            <div style="margin-top:10px; font-family:'JetBrains Mono'; font-size:0.75rem; color:#0369a1; font-weight:700;">
+              Cumplimiento Inmediato de RAC-RPAS
+            </div>
+          </div>
+
+          <!-- Modelo 2: DJI Mini 4 Pro -->
+          <div class="dji-card">
+            <div>
+              <div class="dji-title">DJI Mini 4 Pro</div>
+              <div class="dji-weight">MTOM: ~290 g (con guardas) • Clase A</div>
+              <div class="dji-rotor-guard-box">
+                <strong>Guardas Requeridas:</strong>
+                Accesorio oficial <em>DJI 360° Propeller Guard</em> (jaula circular completa desmontable).
+              </div>
+              <p style="font-size:0.8rem; color:var(--text-body); line-height:1.45;">
+                • Operación sumamente silenciosa que no perturba el ambiente de comensales en restaurantes.<br>
+                • Detección omnidireccional de obstáculos con sensores visuales avanzados.<br>
+                • Cámara 4K con rotación vertical para contenido en redes.
+              </p>
+            </div>
+            <div style="margin-top:10px; font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--text-muted);">
+              Requiere instalar accesorio 360°
+            </div>
+          </div>
+
+          <!-- Modelo 3: DJI Air 3 -->
+          <div class="dji-card">
+            <div>
+              <div class="dji-title">DJI Air 3 / Mavic 3</div>
+              <div class="dji-weight">MTOM: 720 g - 895 g • Clase A</div>
+              <div class="dji-rotor-guard-box">
+                <strong>Guardas Requeridas:</strong>
+                Protectores de hélices reforzados para despegue y aterrizaje en zonas con personas.
+              </div>
+              <p style="font-size:0.8rem; color:var(--text-body); line-height:1.45;">
+                • Alta resistencia al viento (hasta 12 m/s) en miradores de montaña o lagos volcánicos.<br>
+                • Doble cámara teleobjetivo para tomas paisajísticas a mayor distancia.<br>
+                • Por su mayor masa, exige respetar estrictamente los 30 m de separación.
+              </p>
+            </div>
+            <div style="margin-top:10px; font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--text-muted);">
+              Mayor resistencia a vientos en altura
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: PASO A PASO PARA OPERACIÓN COMERCIAL (CORPAS) -->
+    <section class="slide-card" id="slide-5">
+      <div class="slide-top-header">
+        <div class="header-text-group">
+          <div class="slide-badge-kicker">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            RUTA CRÍTICA • CERTIFICADO DE OPERACIÓN
+          </div>
+          <h2 class="slide-main-title">Paso a Paso para Operación Comercial y CORPAS</h2>
+          <p class="slide-lead-desc">Inspector interactivo de formularios y expedientes técnicos requeridos por el Departamento de Ingeniería Aeronáutica.</p>
+        </div>
+        <div class="regulatory-stamp">
+          <div class="stamp-label">DOCUMENTO FINAL</div>
+          <div class="stamp-val">CORPAS AAC-1128</div>
+        </div>
+      </div>
+
+      <div class="doc-inspector-grid">
+        <div class="doc-nav-list">
+          <button class="doc-tab-btn active" onclick="showDocDetail(1)">
+            <div class="tab-code">PASO 1 • FORMULARIO F2</div>
+            <div class="tab-name">Inscripción del Operario (Piloto)</div>
+          </button>
+          <button class="doc-tab-btn" onclick="showDocDetail(2)">
+            <div class="tab-code">PASO 2 • FORMULARIO F1</div>
+            <div class="tab-name">Matrícula e Identificación del Dron</div>
+          </button>
+          <button class="doc-tab-btn" onclick="showDocDetail(3)">
+            <div class="tab-code">PASO 3 • PÓLIZA RC</div>
+            <div class="tab-name">Seguro Obligatorio (Art. 172 LOAC)</div>
+          </button>
+          <button class="doc-tab-btn" onclick="showDocDetail(4)">
+            <div class="tab-code">PASO 4 • FORMULARIO F4</div>
+            <div class="tab-name">Declaración Jurada Notariada</div>
+          </button>
+          <button class="doc-tab-btn" onclick="showDocDetail(5)">
+            <div class="tab-code">PASO 5 • FORMULARIO F5</div>
+            <div class="tab-name">Solicitud Formal de CORPAS (AAC-1128)</div>
+          </button>
+        </div>
+
+        <div class="doc-preview-panel" id="docPreviewBox">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span class="badge-class badge-a" id="previewStepBadge">PASO OBLIGATORIO 1</span>
+              <span style="font-family:'JetBrains Mono'; font-size:0.82rem; color:var(--text-muted);" id="previewCost">Arancel AAC: ~$30.00 USD</span>
+            </div>
+            <h3 class="card-heading" id="previewTitle" style="font-size:1.3rem;">Inscripción del Operario de RPA (AAC-ING-000-F2)</h3>
+            <div class="card-body-text" id="previewBody" style="line-height:1.7; margin-top:10px;">
+              Este formulario censal acredita formalmente al piloto en los registros de la autoridad aeronáutica. Debe presentarse de forma presencial o por la plataforma institucional de la AAC acompañado de:
+              <br><br>
+              • Fotocopia de Documento Único de Identidad (DUI) o Pasaporte vigente.<br>
+              • Comprobante de dirección física y teléfono de contacto en El Salvador.<br>
+              • Compromiso formal firmado de apego a la normativa RAC-RPAS y respeto al espacio aéreo.<br>
+              • Comprobante de pago de derechos de registro de operario expedido en Colecturía de la AAC.
+            </div>
+          </div>
+          <div style="margin-top:20px; padding:12px 16px; background:#ffffff; border-radius:12px; border:1px solid var(--border-light); font-size:0.84rem; color:var(--text-muted);">
+            <strong>Lugar de Radicación:</strong> Dirección de Seguridad de Vuelo / Ventanilla de Recepción AAC, Ilopango.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: PRESUPUESTO (COSTOS SEPARADOS DRON Y PILOTO) -->
+    <section class="slide-card" id="slide-6">
+      <div class="slide-top-header">
+        <div class="header-text-group">
+          <div class="slide-badge-kicker">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/></svg>
+            DESGLOSE FINANCIERO REGULATORIO • EL SALVADOR
+          </div>
+          <h2 class="slide-main-title">Presupuesto</h2>
+          <p class="slide-lead-desc">Inversión inicial requerida para habilitación legal y operativa, separada por requerimientos del Dron y del Piloto.</p>
+        </div>
+        <div class="regulatory-stamp">
+          <div class="stamp-label">MODALIDAD</div>
+          <div style="display:flex; gap:6px; margin-top:4px;">
+            <button class="btn-nav-mode active" id="btnBudgetA" onclick="setBudgetCategory('A')" style="padding:2px 8px; font-size:0.75rem;">Clase A</button>
+            <button class="btn-nav-mode" id="btnBudgetB" onclick="setBudgetCategory('B')" style="padding:2px 8px; font-size:0.75rem;">Clase B</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="budget-grid">
+        <!-- Columna 1: Costos del Piloto -->
+        <div class="budget-column">
+          <div class="budget-column-header">
+            <div class="budget-col-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Habilitación del Piloto
+            </div>
+            <span class="badge-class badge-a" id="badgePilotClass">CLASE A</span>
+          </div>
+
+          <div class="budget-item-row">
+            <span class="budget-item-name">1. Curso Teórico-Práctico (Academia Certificada)</span>
+            <span class="budget-item-cost" id="pilotCourse">$250.00</span>
+          </div>
+          <div class="budget-item-row">
+            <span class="budget-item-name">2. Inscripción de Operario AAC (Formulario F2)</span>
+            <span class="budget-item-cost" id="pilotF2">$30.00</span>
+          </div>
+          <div class="budget-item-row">
+            <span class="budget-item-name">3. Bitácora de Vuelo y Validación de Recencia (3 hrs)</span>
+            <span class="budget-item-cost" id="pilotLogbook">$15.00</span>
+          </div>
+          <div class="budget-item-row">
+            <span class="budget-item-name">4. Evaluación Práctica Fase 4 / Certificado Médico</span>
+            <span class="budget-item-cost" id="pilotExam">$0.00</span>
+          </div>
+
+          <div class="budget-subtotal-box">
+            <span class="subtotal-label">Subtotal Piloto</span>
+            <span class="subtotal-value" id="subtotalPilot">$295.00 USD</span>
+          </div>
+        </div>
+
+        <!-- Columna 2: Costos del Dron -->
+        <div class="budget-column">
+          <div class="budget-column-header">
+            <div class="budget-col-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Legalización y Seguridad del Dron
+            </div>
+            <span class="badge-class badge-a" id="badgeDroneClass">CLASE A</span>
+          </div>
+
+          <div class="budget-item-row">
+            <span class="budget-item-name">1. Matrícula e Inscripción de Aeronave AAC (F1)</span>
+            <span class="budget-item-cost" id="droneF1">$45.00</span>
+          </div>
+          <div class="budget-item-row">
+            <span class="budget-item-name">2. Placa Metálica Grabada Láser & Calcomanía QR</span>
+            <span class="budget-item-cost" id="dronePlate">$15.00</span>
+          </div>
+          <div class="budget-item-row">
+            <span class="budget-item-name">3. Protectores de Hélices / Guardas de Rotores</span>
+            <span class="budget-item-cost" id="droneGuards">$35.00</span>
+          </div>
+          <div class="budget-item-row">
+            <span class="budget-item-name">4. Póliza Seguro Responsabilidad Civil (1 Año - Art. 172)</span>
+            <span class="budget-item-cost" id="droneInsurance">$360.00</span>
+          </div>
+          <div class="budget-item-row">
+            <span class="budget-item-name">5. Declaración Jurada Notariada (F4) / Manuales MO-SMS</span>
+            <span class="budget-item-cost" id="droneDocs">$25.00</span>
+          </div>
+          <div class="budget-item-row">
+            <span class="budget-item-name">6. Derechos de Certificado CORPAS AAC (AAC-1128)</span>
+            <span class="budget-item-cost" id="droneCorpas">$100.00</span>
+          </div>
+
+          <div class="budget-subtotal-box">
+            <span class="subtotal-label">Subtotal Dron</span>
+            <span class="subtotal-value" id="subtotalDrone">$580.00 USD</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Inversión Consolidada -->
+      <div class="budget-total-bar">
+        <div>
+          <div class="total-kicker" id="budgetSummaryKicker">PRESUPUESTO TOTAL CONSOLIDADO • CLASE "A"</div>
+          <div class="total-title">Inversión Regulatoria Inicial para Puesta en Marcha</div>
+          <div style="font-size:0.8rem; color:#94a3b8; margin-top:2px;" id="budgetVigenciaNotice">
+            Incluye piloto habilitado, dron matriculado con placa YS, seguro anual y permiso CORPAS.
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div class="total-amount-display" id="grandTotalBudget">$875.00</div>
+          <div style="font-size:0.75rem; color:#38bdf8; font-family:'JetBrains Mono';">VALORES EN USD</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: RESTRICCIONES Y OPERACIÓN CON VR EN RESTAURANTES -->
+    <section class="slide-card" id="slide-7">
+      <div class="slide-top-header">
+        <div class="header-text-group">
+          <div class="slide-badge-kicker">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            SEGURIDAD OPERACIONAL • ENTORNO TURÍSTICO
+          </div>
+          <h2 class="slide-main-title">Restricciones Operacionales y Seguridad para VR</h2>
+          <p class="slide-lead-desc">Regulaciones indispensables para operar con turistas y visores VR en mesas de restaurantes y miradores aliados.</p>
+        </div>
+        <div class="regulatory-stamp">
+          <div class="stamp-label">PROTOCOLOS</div>
+          <div class="stamp-val">RAC-RPAS 4.020 & 5.010</div>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <div>
+          <div class="image-showcase">
+            <img src="assets/pilot-vr-station.jpg" alt="Estación de Vuelo y Turistas con Visores VR">
+            <div class="image-caption-pill">PILOTO Y OBSERVADOR + COMENSALES BAJO PÉRGOLA CON VISORES VR</div>
+          </div>
+          <div class="advisor-card alert-card">
+            <div class="card-heading" style="color:#92400e; font-size:1.05rem;">Rol Obligatorio del Observador Visual (RAC-RPAS 4.020 g)</div>
+            <p class="card-body-text" style="color:#78350f;">
+              La legislación salvadoreña estipula que cuando se transmita video en tiempo real a visores de Realidad Virtual (modo FPV), el piloto <strong>no puede operar en solitario</strong>. Es obligatorio contar con un <strong>Observador Visual en línea de vista constante (VLOS)</strong> que vigile el espacio aéreo y mantenga comunicación directa e ininterrumpida con el piloto.
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="advisor-card">
+            <div class="card-heading">Distancias a Mesas y Clientes (Art. 5.010 f-g)</div>
+            <p class="card-body-text">
+              • <strong>Zona de Seguridad:</strong> Mantener una separación mínima de <strong>30 metros</strong> de personas no involucradas.<br>
+              • <strong>Reducción a 15 metros:</strong> Permitida únicamente con clientes que han otorgado su <strong>consentimiento expreso</strong> al contratar la experiencia.<br>
+              • <strong>Estructuras de Protección:</strong> Los comensales deben ubicarse preferentemente bajo terrazas, toldos o pérgolas que provean resguardo físico.
+            </p>
+          </div>
+
+          <div class="advisor-card">
+            <div class="card-heading">Protectores de Hélices Obligatorios (Art. 5.035 b.4)</div>
+            <p class="card-body-text">
+              Para cualquier operación comercial cercana a terrazas o miradores, las aeronaves multirrotor deben portar de forma obligatoria y permanente <strong>protectores de hélices (propeller guards)</strong> instalados para evitar laceraciones en caso de aterrizaje imprevisto.
+            </p>
+          </div>
+
+          <div class="advisor-card" style="border-left:4px solid var(--status-red);">
+            <div class="card-heading" style="color:var(--status-red);">Zonas Prohibidas y Regla de 48 Horas (RAC 13)</div>
+            <p class="card-body-text">
+              Prohibido volar a menos de <strong>6 km de aeropuertos internacionales</strong> (MSRP / MSSS) y sobre instalaciones de gobierno o presas hidroeléctricas. Cualquier incidente con daños a terceros superiores a <strong>$500.00 USD</strong> debe reportarse a la AAC en un plazo no mayor a <strong>48 horas</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: DIAGRAMA DE FLUJO DE LEGALIZACIÓN Y PUESTA EN MARCHA -->
+    <section class="slide-card" id="slide-8">
+      <div class="slide-top-header">
+        <div class="header-text-group">
+          <div class="slide-badge-kicker">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            FLUJOGRAMA DE HOMOLOGACIÓN • RUTA CRÍTICA PASO A PASO
+          </div>
+          <h2 class="slide-main-title">Diagrama de Flujo: Legalización y Puesta en Marcha</h2>
+          <p class="slide-lead-desc">Secuencia cronológica de pasos, formularios oficiales y entidades para tener el dron 100% legal y operativo en El Salvador.</p>
+        </div>
+        <div class="regulatory-stamp">
+          <div class="stamp-label">ESTADO FINAL</div>
+          <div class="stamp-val" style="color:var(--status-green);">CORPAS APROBADO</div>
+        </div>
+      </div>
+
+      <div class="flowchart-container">
+        <!-- Riel Horizontal de Nodos del Flujograma -->
+        <div class="flow-steps-rail">
+          <div class="flow-step-node active" onclick="selectFlowNode(1)" id="flowNode1">
+            <div class="flow-node-num">1</div>
+            <div class="flow-node-title">Piloto & Bitácora</div>
+            <div class="flow-node-form">Capacitación</div>
+          </div>
+
+          <div class="flow-step-node" onclick="selectFlowNode(2)" id="flowNode2">
+            <div class="flow-node-num">2</div>
+            <div class="flow-node-title">Registro Operario</div>
+            <div class="flow-node-form">Formulario F2</div>
+          </div>
+
+          <div class="flow-step-node" onclick="selectFlowNode(3)" id="flowNode3">
+            <div class="flow-node-num">3</div>
+            <div class="flow-node-title">Matrícula Dron</div>
+            <div class="flow-node-form">Formulario F1</div>
+          </div>
+
+          <div class="flow-step-node" onclick="selectFlowNode(4)" id="flowNode4">
+            <div class="flow-node-num">4</div>
+            <div class="flow-node-title">Seguro & Placa</div>
+            <div class="flow-node-form">LOAC Art. 172</div>
+          </div>
+
+          <div class="flow-step-node" onclick="selectFlowNode(5)" id="flowNode5">
+            <div class="flow-node-num">5</div>
+            <div class="flow-node-title">Declaración Jurada</div>
+            <div class="flow-node-form">Formulario F4</div>
+          </div>
+
+          <div class="flow-step-node" onclick="selectFlowNode(6)" id="flowNode6">
+            <div class="flow-node-num">6</div>
+            <div class="flow-node-title">Emisión CORPAS</div>
+            <div class="flow-node-form">Cert. AAC-1128</div>
+          </div>
+
+          <div class="flow-step-node" onclick="selectFlowNode(7)" id="flowNode7">
+            <div class="flow-node-num">7</div>
+            <div class="flow-node-title">Operación en Campo</div>
+            <div class="flow-node-form">Vuelo VR Legal</div>
+          </div>
+        </div>
+
+        <!-- Panel de Detalle Dinámico del Paso Seleccionado -->
+        <div class="flow-detail-card" id="flowDetailCard">
+          <div>
+            <div class="flow-detail-header">
+              <span class="badge-class badge-a" id="flowDetailBadge">FASE 1 DE 7</span>
+              <span style="font-family:'JetBrains Mono'; font-size:0.8rem; color:var(--primary-dark); font-weight:700;" id="flowDetailFormCode">ACREDITACIÓN DE APTITUD</span>
+            </div>
+            <h3 class="card-heading" id="flowDetailTitle" style="font-size:1.3rem;">Capacitación del Piloto y Registro de Bitácora</h3>
+            <p class="card-body-text" id="flowDetailDesc" style="line-height:1.7; margin-top:8px;">
+              El aspirante a piloto comercial debe completar su formación básica y acreditar en su bitácora personal un mínimo de <strong>3 horas de vuelo durante los últimos 3 meses</strong>. Debe dominar los modos de vuelo manual, procedimientos de pérdida de enlace y maniobras de aterrizaje de emergencia.
+            </p>
+          </div>
+
+          <div style="background:#f8fafc; border:1px solid var(--border-light); border-radius:12px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">Entidad Responsable & Documentación</div>
+              <div style="font-size:0.88rem; color:var(--text-heading); font-weight:600; margin-top:4px;" id="flowDetailEntity">
+                Academia de Vuelo Certificada / Instructor Autorizado
+              </div>
+
+              <div style="margin-top:12px; font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">Requisitos Clave</div>
+              <div style="font-size:0.84rem; color:var(--text-body); line-height:1.5; margin-top:4px;" id="flowDetailReqs">
+                • Mayor de 18 años.<br>
+                • Bitácora con 3 horas certificadas.<br>
+                • Certificado de aprobación teórico-práctico.
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:12px; border-top:1px solid #e2e8f0;">
+              <span style="font-size:0.78rem; color:var(--text-muted);">Tiempo Estimado de Gestión:</span>
+              <span style="font-family:'JetBrains Mono'; font-weight:700; color:var(--primary-dark); font-size:0.84rem;" id="flowDetailTime">1 a 2 Semanas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Deck Controller -->
+  <footer class="presentation-footer">
+    <div class="footer-left">
+      <div class="slide-page-counter">
+        DIAPOSITIVA <span id="currentNum">1</span> DE <span id="totalNum">8</span>
+      </div>
+      <div class="progress-dots" id="dotsNav"></div>
+    </div>
+
+    <div class="footer-right">
+      <button class="btn-slide-nav" id="btnPrevSlide" onclick="changeSlide(-1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Anterior
+      </button>
+      <button class="btn-slide-nav btn-primary" id="btnNextSlide" onclick="changeSlide(1)">
+        Siguiente
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    // State
+    let currentSlide = 1;
+    const totalSlides = 8;
+    let presentationMode = 'deck'; // 'deck' or 'scroll'
+
+    // Init Dots
+    const dotsContainer = document.getElementById('dotsNav');
+    for (let i = 1; i <= totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.className = `nav-dot ${i === 1 ? 'active' : ''}`;
+      dot.onclick = () => setSlide(i);
+      dotsContainer.appendChild(dot);
+    }
+
+    function togglePresentationMode(mode) {
+      presentationMode = mode;
+      const body = document.body;
+      const btnDeck = document.getElementById('btnDeck');
+      const btnScroll = document.getElementById('btnScroll');
+
+      if (mode === 'scroll') {
+        body.classList.add('continuous-mode');
+        btnScroll.classList.add('active');
+        btnDeck.classList.remove('active');
+      } else {
+        body.classList.remove('continuous-mode');
+        btnDeck.classList.add('active');
+        btnScroll.classList.remove('active');
+        setSlide(currentSlide);
+      }
+    }
+
+    function setSlide(index) {
+      if (index < 1 || index > totalSlides) return;
+      currentSlide = index;
+
+      for (let i = 1; i <= totalSlides; i++) {
+        const el = document.getElementById(`slide-${i}`);
+        if (el) el.classList.toggle('active', i === currentSlide);
+      }
+
+      const dots = dotsContainer.children;
+      for (let i = 0; i < dots.length; i++) {
+        dots[i].classList.toggle('active', i + 1 === currentSlide);
+      }
+
+      document.getElementById('currentNum').innerText = currentSlide;
+      document.getElementById('btnPrevSlide').disabled = currentSlide === 1;
+      document.getElementById('btnPrevSlide').style.opacity = currentSlide === 1 ? '0.4' : '1';
+      document.getElementById('btnNextSlide').innerText = currentSlide === totalSlides ? 'Volver al Inicio' : 'Siguiente';
+    }
+
+    function changeSlide(direction) {
+      if (currentSlide === totalSlides && direction === 1) {
+        setSlide(1);
+        return;
+      }
+      setSlide(currentSlide + direction);
+    }
+
+    // Keyboard support
+    window.addEventListener('keydown', (e) => {
+      if (presentationMode === 'deck') {
+        if (e.key === 'ArrowRight' || e.key === 'Space') changeSlide(1);
+        else if (e.key === 'ArrowLeft') changeSlide(-1);
+      }
+    });
+
+    // Document Inspector Details
+    const docData = {
+      1: {
+        badge: "PASO OBLIGATORIO 1",
+        cost: "Arancel AAC: ~$30.00 USD",
+        title: "Inscripción del Operario de RPA (AAC-ING-000-F2)",
+        body: "Acredita formalmente al piloto humano en el registro de aviación civil salvadoreña. Requiere presentación de DUI o Pasaporte, comprobante de dirección física y correo de notificación, firma de compromiso con RAC-RPAS y comprobante de pago de derechos de trámite expedido en la colecturía de la AAC en Ilopango.",
+        location: "Dirección de Seguridad de Vuelo / Ventanilla de Recepción AAC, Ilopango."
+      },
+      2: {
+        badge: "PASO OBLIGATORIO 2",
+        cost: "Arancel AAC: ~$45.00 USD",
+        title: "Matrícula e Identificación del Dron (AAC-ING-000-F1)",
+        body: "Asigna la matrícula oficial YS-XXXX-M-P. Exige factura comercial o compraventa notariada, número de serie del dron y de la estación de control (RPS), frecuencias de transmisión, 4 fotografías oficiales (frontal, superior, inferior, lateral) y grabado láser de placa metálica indeleble con código QR.",
+        location: "Departamento de Ingeniería Aeronáutica de la AAC, Ilopango."
+      },
+      3: {
+        badge: "PASO OBLIGATORIO 3",
+        cost: "Prima Anual: ~$360.00 USD ($30/mes)",
+        title: "Póliza de Responsabilidad Civil (Art. 172 LOAC)",
+        body: "Seguro obligatorio emitido por aseguradora autorizada en El Salvador con cobertura territorial en todo el espacio aéreo nacional. Ampara lesiones corporales (incluso fatales) y daños a bienes de terceros en tierra, especificando suma asegurada en USD por cada ocurrencia.",
+        location: "Compañías de Seguros autorizadas en El Salvador (ej. Asesuisa, SISA, Mapfre)."
+      },
+      4: {
+        badge: "PASO OBLIGATORIO 4",
+        cost: "Honorarios Notario: ~$25.00 USD",
+        title: "Declaración Jurada Notariada (AAC-ING-000-F4)",
+        body: "Documento legal firmado ante Notario Público salvadoreño donde el operador declara bajo juramento las operaciones intencionadas, el compromiso de respetar las distancias mínimas a personas y aeropuertos, y el cumplimiento de las inspecciones pre-vuelo.",
+        location: "Despacho Notarial autorizado en El Salvador."
+      },
+      5: {
+        badge: "PASO OBLIGATORIO 5",
+        cost: "Derechos CORPAS AAC: ~$100.00 - $150.00 USD",
+        title: "Solicitud de Certificado CORPAS (AAC-ING-000-F5 / AAC-1128)",
+        body: "Solicitud formal que compila los formularios F1, F2, F4, la póliza de seguro y los convenios de sobrevuelo con restaurantes y miradores. Tras su dictamen favorable, la AAC emite el Certificado CORPAS (AAC-1128) con vigencia de 1 año para trabajo aéreo comercial.",
+        location: "Dirección Ejecutiva de la AAC, Ilopango."
+      }
+    };
+
+    function showDocDetail(stepNum) {
+      const buttons = document.querySelectorAll('.doc-tab-btn');
+      buttons.forEach((btn, idx) => {
+        btn.classList.toggle('active', idx + 1 === stepNum);
+      });
+      const data = docData[stepNum];
+      document.getElementById('previewStepBadge').innerText = data.badge;
+      document.getElementById('previewCost').innerText = data.cost;
+      document.getElementById('previewTitle').innerText = data.title;
+      document.getElementById('previewBody').innerHTML = data.body;
+    }
+
+    // Budget Split Logic (Dron vs Piloto)
+    let currentBudgetCat = 'A';
+    function setBudgetCategory(cat) {
+      currentBudgetCat = cat;
+      const btnA = document.getElementById('btnBudgetA');
+      const btnB = document.getElementById('btnBudgetB');
+      btnA.classList.toggle('active', cat === 'A');
+      btnB.classList.toggle('active', cat === 'B');
+
+      const badgePilot = document.getElementById('badgePilotClass');
+      const badgeDrone = document.getElementById('badgeDroneClass');
+      badgePilot.className = `badge-class ${cat === 'A' ? 'badge-a' : 'badge-b'}`;
+      badgePilot.innerText = cat === 'A' ? 'CLASE A' : 'CLASE B';
+      badgeDrone.className = `badge-class ${cat === 'A' ? 'badge-a' : 'badge-b'}`;
+      badgeDrone.innerText = cat === 'A' ? 'CLASE A' : 'CLASE B';
+
+      if (cat === 'A') {
+        // Piloto Clase A
+        document.getElementById('pilotCourse').innerText = "$250.00";
+        document.getElementById('pilotF2').innerText = "$30.00";
+        document.getElementById('pilotLogbook').innerText = "$15.00";
+        document.getElementById('pilotExam').innerText = "$0.00";
+        document.getElementById('subtotalPilot').innerText = "$295.00 USD";
+
+        // Dron Clase A
+        document.getElementById('droneF1').innerText = "$45.00";
+        document.getElementById('dronePlate').innerText = "$15.00";
+        document.getElementById('droneGuards').innerText = "$35.00";
+        document.getElementById('droneInsurance').innerText = "$360.00";
+        document.getElementById('droneDocs').innerText = "$25.00";
+        document.getElementById('droneCorpas').innerText = "$100.00";
+        document.getElementById('subtotalDrone').innerText = "$580.00 USD";
+
+        // Gran Total
+        document.getElementById('grandTotalBudget').innerText = "$875.00";
+        document.getElementById('budgetSummaryKicker').innerText = 'PRESUPUESTO TOTAL CONSOLIDADO • CLASE "A"';
+        document.getElementById('budgetVigenciaNotice').innerText = "Incluye piloto habilitado, dron matriculado con placa YS, seguro anual y permiso CORPAS (1 año).";
+      } else {
+        // Piloto Clase B
+        document.getElementById('pilotCourse').innerText = "$550.00";
+        document.getElementById('pilotF2').innerText = "$30.00";
+        document.getElementById('pilotLogbook').innerText = "$120.00";
+        document.getElementById('pilotExam').innerText = "$60.00";
+        document.getElementById('subtotalPilot').innerText = "$760.00 USD";
+
+        // Dron Clase B
+        document.getElementById('droneF1').innerText = "$65.00";
+        document.getElementById('dronePlate').innerText = "$20.00";
+        document.getElementById('droneGuards').innerText = "$50.00";
+        document.getElementById('droneInsurance').innerText = "$500.00";
+        document.getElementById('droneDocs').innerText = "$250.00";
+        document.getElementById('droneCorpas').innerText = "$150.00";
+        document.getElementById('subtotalDrone').innerText = "$1,035.00 USD";
+
+        // Gran Total
+        document.getElementById('grandTotalBudget').innerText = "$1,795.00";
+        document.getElementById('budgetSummaryKicker').innerText = 'PRESUPUESTO TOTAL CONSOLIDADO • CLASE "B"';
+        document.getElementById('budgetVigenciaNotice').innerText = "Incluye manuales MO/SMS, estudio de riesgo SORA, examen práctico Fase 4 AAC y CORPAS (3 años).";
+      }
+    }
+
+    // Flowchart Step Selection Logic
+    const flowStepDetails = {
+      1: {
+        badge: "FASE 1 DE 7",
+        formCode: "ACREDITACIÓN DE APTITUD",
+        title: "Capacitación del Piloto y Registro de Bitácora",
+        desc: "El aspirante a piloto comercial debe completar su formación básica y acreditar en su bitácora personal un mínimo de <strong>3 horas de vuelo durante los últimos 3 meses</strong>. Debe dominar los modos de vuelo manual, procedimientos de pérdida de enlace y maniobras de aterrizaje de emergencia.",
+        entity: "Academia de Vuelo Certificada / Instructor Autorizado",
+        reqs: "• Mayor de 18 años.<br>• Bitácora con 3 horas certificadas.<br>• Certificado de aprobación teórico-práctico.",
+        time: "1 a 2 Semanas"
+      },
+      2: {
+        badge: "FASE 2 DE 7",
+        formCode: "FORMULARIO AAC-ING-000-F2",
+        title: "Inscripción del Operario en el Registro de la AAC",
+        desc: "Presentación formal del formulario censal F2 ante la Colecturía de la Autoridad de Aviación Civil en Ilopango. Se abre el expediente del piloto y se emite la constancia oficial de registro tras el abono de los aranceles.",
+        entity: "Dirección de Seguridad de Vuelo / Ventanilla AAC Ilopango",
+        reqs: "• Formulario F2 completo y firmado.<br>• DUI o Pasaporte legalizado.<br>• Compromiso formal con RAC-RPAS.<br>• Arancel AAC: ~$30.00 USD.",
+        time: "3 a 5 Días Hábiles"
+      },
+      3: {
+        badge: "FASE 3 DE 7",
+        formCode: "FORMULARIO AAC-ING-000-F1",
+        title: "Matrícula e Inscripción del Dron en el Registro Aeronáutico",
+        desc: "Consignación del formulario F1 para asignación de matrícula de nacionalidad salvadoreña <strong>YS-XXXX-M-P</strong>. Incluye verificación de números de serie del dron y de la estación de control (RPS), frecuencias y 4 fotografías oficiales en cruz.",
+        entity: "Departamento de Ingeniería Aeronáutica de la AAC",
+        reqs: "• Formulario F1 con datos técnicos y seriales.<br>• Factura comercial o compraventa notariada.<br>• 4 fotografías (frontal, superior, inferior, lateral).<br>• Arancel AAC: ~$45.00 USD.",
+        time: "5 a 8 Días Hábiles"
+      },
+      4: {
+        badge: "FASE 4 DE 7",
+        formCode: "LOAC ART. 172 & ROTULACIÓN",
+        title: "Seguro de Responsabilidad Civil y Placa Metálica con QR",
+        desc: "Contratación de la póliza de seguro aeronáutico con cobertura de daños a terceros en superficie. Grabado láser de la placa metálica indeleble e impresión de la calcomanía QR adheridas tanto al fuselaje del dron como al radiocontrol.",
+        entity: "Aseguradora Nacional Autorizada + Taller de Grabado Láser",
+        reqs: "• Póliza de seguro por daños a terceros.<br>• Placa física grabada YS-XXXX-M-P fija.<br>• Código QR legible para escaneo de inspectores.",
+        time: "3 a 5 Días"
+      },
+      5: {
+        badge: "FASE 5 DE 7",
+        formCode: "FORMULARIO AAC-ING-000-F4",
+        title: "Declaración Jurada Notariada de Cumplimiento Operacional",
+        desc: "Formalización de acta notarial donde el operador y el piloto declaran bajo juramento que cumplirán las restricciones operacionales (VLOS, alturas máximas, separación a personas) y que asumen la responsabilidad civil y penal derivada de las operaciones.",
+        entity: "Despacho Notarial Autorizado en El Salvador",
+        reqs: "• Formulario F4 llenado.<br>• Comparecencia y firma ante Notario Público.<br>• Honorarios notariales: ~$25.00 USD.",
+        time: "1 a 2 Días"
+      },
+      6: {
+        badge: "FASE 6 DE 7",
+        formCode: "FORMULARIO AAC-ING-000-F5 • CERTIFICADO AAC-1128",
+        title: "Solicitud y Emisión del Certificado CORPAS",
+        desc: "Presentación del expediente final consolidado (F1 + F2 + F4 + Póliza + Convenios con miradores/restaurantes). La AAC realiza la revisión técnica y otorga formalmente el <strong>Certificado de Operación CORPAS (AAC-1128)</strong> para trabajo aéreo comercial.",
+        entity: "Dirección Ejecutiva de la AAC, Ilopango",
+        reqs: "• Expediente completo foliado.<br>• Solicitud F5 formal.<br>• Pago de derechos de emisión de certificado.",
+        time: "1 a 2 Semanas"
+      },
+      7: {
+        badge: "FASE 7 DE 7",
+        formCode: "OPERACIÓN AUTORIZADA",
+        title: "Puesta en Marcha Comercial y Vuelos Turísticos con VR",
+        desc: "Inicio de vuelos turísticos inmersivos 100% legalizados. Despliegue en sitio cumpliendo: <strong>Piloto al mando + Observador Visual obligatorio</strong>, dron con guardas de hélices cerradas (ej. DJI Avata 2), y comensales resguardados bajo pérgola o a 15 metros.",
+        entity: "Emprendimiento en Restaurantes / Miradores Aliados",
+        reqs: "• Observador VLOS en comunicación radial activa.<br>• Dron con protectores de hélices instalados.<br>• Consentimiento de clientes y bitácora de campo.",
+        time: "Operación Continua"
+      }
+    };
+
+    function selectFlowNode(stepIndex) {
+      for (let i = 1; i <= 7; i++) {
+        const node = document.getElementById(`flowNode${i}`);
+        if (node) node.classList.toggle('active', i === stepIndex);
+      }
+
+      const d = flowStepDetails[stepIndex];
+      document.getElementById('flowDetailBadge').innerText = d.badge;
+      document.getElementById('flowDetailFormCode').innerText = d.formCode;
+      document.getElementById('flowDetailTitle').innerText = d.title;
+      document.getElementById('flowDetailDesc').innerHTML = d.desc;
+      document.getElementById('flowDetailEntity').innerText = d.entity;
+      document.getElementById('flowDetailReqs').innerHTML = d.reqs;
+      document.getElementById('flowDetailTime').innerText = d.time;
+    }
+  </script>
+</body>
+</html>

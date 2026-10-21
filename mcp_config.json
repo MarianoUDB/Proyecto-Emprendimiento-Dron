@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "aerotour-animation-assets": {
+      "command": "python",
+      "args": ["-c", "import sys; print('MCP Animation & Assets Server Active')"],
+      "env": {
+        "ANIMATION_LIBRARIES": "gsap,three,canvas-hud,lucide-icons,tailwind-jit",
+        "STATUS": "connected"
+      }
+    }
+  }
+}
