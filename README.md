@@ -6,25 +6,6 @@ Este repositorio contiene la presentación ejecutiva interactiva y la guía paso
 
 ---
 
-## 🚀 Cómo Visualizar la Presentación
-
-### Opción 1: En tu Navegador Local
-Haz **doble clic** sobre el archivo [`index.html`](./index.html) para abrirlo en tu navegador favorito (Chrome, Edge, Firefox, Safari).
-
-También puedes abrirlo con el servidor local de Python en la terminal:
-```bash
-python -m http.server 8000
-```
-Y entrar a `http://localhost:8000`.
-
-### Opción 2: Publicar Gratis en GitHub Pages
-1. Sube este repositorio a tu cuenta de GitHub.
-2. En tu repositorio en GitHub, ve a **Settings** > **Pages**.
-3. En **Source**, selecciona `Deploy from a branch`.
-4. En **Branch**, selecciona `main` y la carpeta `/ (root)`. Haz clic en **Save**.
-5. ¡Listo! En 1 minuto tendrás un enlace web público interactivo.
-
----
 
 ## 📑 Estructura de las 8 Diapositivas
 
